@@ -28,7 +28,6 @@ body::before {
     position: relative;
     border: none;
     padding: 10px 15px;
-    border-radius: 10px;
     font-weight: bold;
     overflow: hidden;
 }
@@ -98,7 +97,7 @@ body::before {
     color: whitesmoke;
     font-size: 1em;
     background-color: rgba(0, 0, 0, 0.3);
-    transition: all 300ms ease-in-out;
+    transition: all 200ms ease-in-out;
     border-radius: 25px;
     border: transparent;
 }
@@ -139,6 +138,8 @@ input#location {
     border: 2px solid greenyellow;
     height: 200px;
     user-select: none;
+    transition: all 400ms ease-in-out;
+    opacity: 0;
 }
 
 .name {
@@ -156,6 +157,8 @@ input#location {
     flex-grow: 1;
     font-size: 1.4em;
     user-select: none;
+    transition: opacity 400ms ease-in-out;
+    opacity: 0;
 }
 
 .main-weather-wrapper {
@@ -173,7 +176,6 @@ input#location {
     display: grid;
     grid-template: 1fr / 1fr 1fr;
     opacity: 0;
-    transition: opacity 400ms ease-in-out;
 }
 
 .weather-parameters,
@@ -183,6 +185,15 @@ input#location {
     border: 2px solid red;
     justify-items: center;
     align-items: center;
+}
+
+@keyframes fade-in {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 
 .weather-image-wrapper>img {
