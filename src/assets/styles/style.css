@@ -44,6 +44,7 @@ body::before {
     background: radial-gradient(white, #3984ff00 80%);
     opacity: 0;
     transition: opacity 0.2s;
+    z-index: -1;
 }
 
 .main-wrapper:hover::after {
@@ -54,6 +55,7 @@ body::before {
 /* END of cursor lighting */
 
 .weather-app-title {
+    padding-top: 40px;
     text-align: center;
     font-size: 2em;
     user-select: none;
@@ -65,14 +67,14 @@ body::before {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 .search-image {
     width: 17px;
     position: absolute;
     top: 8px;
-    right: 30%;
+    right: 36%;
     transition: all 200ms ease-in-out;
 }
 
@@ -124,7 +126,7 @@ input#location {
     padding-left: 10px;
 }
 
-.invalid-location{
+.invalid-location {
     color: #e95050;
     display: none;
 }
@@ -140,8 +142,8 @@ input#location {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid greenyellow;
-    height: 200px;
+    /* border: 2px solid greenyellow; */
+    height: 150px;
     user-select: none;
     transition: all 400ms ease-in-out;
     opacity: 0;
@@ -158,7 +160,7 @@ input#location {
 .weather-content {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     flex-grow: 1;
     font-size: 1.4em;
     user-select: none;
@@ -167,13 +169,13 @@ input#location {
 }
 
 .main-weather-wrapper {
-    border: 2px solid #288022;
+    /* border: 2px solid #288022; */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.3em
+    font-size: 1.7em
 }
 
 .weather-info-wrapper {
@@ -183,11 +185,19 @@ input#location {
     opacity: 0;
 }
 
+.loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .weather-parameters,
 .descriptions {
     display: grid;
     grid-template: repeat(1fr) / 1fr;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     justify-items: center;
     align-items: center;
 }

@@ -1,6 +1,7 @@
 import './assets/styles/reset.css'
 import './assets/styles/style.css'
 import Search from './assets/images/search.png'
+import Loading from './assets/images/loading.gif'
 
 //GIPHY API Key = r44Ss44HzU3t5v9EEYIEjY8WGzrFmDkt
 
@@ -33,13 +34,14 @@ const DOMCache = (function () {
     const humidityDesc = document.querySelector('.humidity-description')
     const convertUnitsButton = document.querySelector('#convert-units-button')
     const mainWeather = document.querySelector('.main-weather')
-    const weatherDesc = document.querySelector('.weather-description')
     const weatherContent = document.querySelector('.weather-content')
     const weatherInfoWrapper = document.querySelector('.weather-info-wrapper')
     const locationContent = document.querySelector('.location-content')
     const invalidLocation = document.querySelector('.invalid-location')
+    const loading = document.querySelector('.loading')
 
     return {
+        loading,
         invalidLocation,
         locationContent,
         weatherInfoWrapper,
@@ -55,7 +57,6 @@ const DOMCache = (function () {
         humidityDesc,
         convertUnitsButton,
         mainWeather,
-        weatherDesc,
         mainWrapper
     };
 })();
@@ -68,7 +69,6 @@ async function getWeather(location) {
         country: data['sys']['country'],
         name: data['name'],
         mainWeather: data['weather'][0]['main'],
-        weatherDesc: data['weather'][0]['description'],
         minTemp: data['main']['temp_min'],
         maxTemp: data['main']['temp_max'],
         avgTemp: data['main']['temp'],
@@ -87,19 +87,21 @@ DOMCache.convertUnitsButton.addEventListener('click', () => {
     isFahrenheit
         ? DOMCache.convertUnitsButton.innerText = 'Fahrenheit'
         : DOMCache.convertUnitsButton.innerText = 'Celcius'
-    render()
+    if (DOMCache.locationInput.value !== '') {
+        render()
+    }
 })
 
 async function render() {
     showDisplay();
+    DOMCache.loading.style.display = 'block'
     try {
         let weatherObject = await getWeather(DOMCache.locationInput.value).then(data => data)
         console.log(weatherObject);
-
+        DOMCache.loading.style.display = 'none'
         //others
         DOMCache.name.innerText = weatherObject.name
         DOMCache.countryCode.innerText = weatherObject.country
-        DOMCache.weatherDesc.innerText = weatherObject.weatherDesc
         DOMCache.humidityDesc.innerText = weatherObject.humidity
         DOMCache.mainWeather.innerText = weatherObject.mainWeather
 
@@ -131,7 +133,6 @@ DOMCache.searchButton.addEventListener('click', render)
 function resetDisplay() {
     DOMCache.name.innerText = 'Location Name'
     DOMCache.countryCode.innerText = 'Country'
-    DOMCache.weatherDesc.innerText = ''
     DOMCache.humidityDesc.innerText = ''
     DOMCache.mainWeather.innerText = ''
     DOMCache.feelsLikeDesc.innerText = ''
@@ -164,8 +165,8 @@ window.addEventListener('keydown', (e) => {
 })
 
 // GLOW EFFECT FOLLOWING CURSOR
-// DOMCache.mainWrapper.addEventListener("mousemove", (e) => {
-//     let { x, y } = DOMCache.mainWrapper.getBoundingClientRect();
-//     DOMCache.mainWrapper.style.setProperty("--x", e.clientX - x);
-//     DOMCache.mainWrapper.style.setProperty("--y", e.clientY - y);
-// });
+DOMCache.mainWrapper.addEventListener("mousemove", (e) => {
+    let { x, y } = DOMCache.mainWrapper.getBoundingClientRect();
+    DOMCache.mainWrapper.style.setProperty("--x", e.clientX - x);
+    DOMCache.mainWrapper.style.setProperty("--y", e.clientY - y);
+});
