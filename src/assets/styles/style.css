@@ -1,5 +1,4 @@
 body {
-    background-color: beige;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,11 +6,107 @@ body {
     background-image: url('../images/background.webp');
     background-size: 100% 100vh;
     background-repeat: no-repeat;
+    text-shadow: -1.5px 0px 0px #000000;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.4;
+    z-index: -1;
 }
 
 .main-wrapper {
     width: max(500px, 50%);
-    background-color: rgba(240, 248, 255, 0.6);
+    background-color: rgba(240, 248, 255, 0.2);
+    color: white;
+    position: relative;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+/* Linear Cursor Lighting */
+.main-wrapper::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--y, 0) * 1px - 100px);
+    left: calc(var(--x, 0) * 1px - 100px);
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background: radial-gradient(white, #3984ff00 80%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.main-wrapper:hover::after {
+    /* show a faded shiny effect on hover */
+    opacity: 0.4;
+}
+
+/* END of cursor lighting */
+
+.weather-app-title {
+    text-align: center;
+    font-size: 2em;
+    user-select: none;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+}
+
+.search-image {
+    width: 17px;
+    position: absolute;
+    top: 8px;
+    right: 30%;
+    transition: all 200ms ease-in-out;
+}
+
+.search-image:hover {
+    transform: scale(1.2);
+}
+
+.search-image:active {
+    transform: scale(1.5);
+}
+
+.convert-units-button-wrapper {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    height: 30px;
+}
+
+#convert-units-button {
+    width: 100px;
+}
+
+input#location {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3.5px solid whitesmoke;
+    caret-color: white;
+    width: 200px;
+    height: 30px;
+    font-size: 1em;
+    color: whitesmoke;
+    padding-left: 10px;
 }
 
 .weather-content-wrapper {
@@ -23,8 +118,19 @@ body {
 .location-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 2px solid greenyellow;
-    flex-grow: 0.5;
+    height: 200px;
+    user-select: none;
+}
+
+.name {
+    font-size: 3.3em;
+}
+
+.country-code {
+    font-size: 2.3em;
 }
 
 .weather-content {
@@ -32,11 +138,18 @@ body {
     flex-direction: column;
     border: 2px solid black;
     flex-grow: 1;
+    font-size: 1.4em;
+    user-select: none;
 }
 
 .main-weather-wrapper {
     border: 2px solid #288022;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em
 }
 
 .weather-info-wrapper {

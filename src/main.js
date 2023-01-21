@@ -1,6 +1,6 @@
 import './assets/styles/reset.css'
 import './assets/styles/style.css'
-
+import Search from './assets/images/search.png'
 
 //GIPHY API Key = r44Ss44HzU3t5v9EEYIEjY8WGzrFmDkt
 
@@ -21,9 +21,10 @@ import './assets/styles/style.css'
 let isFahrenheit = false;
 
 const DOMCache = (function () {
+    const mainWrapper = document.querySelector('.main-wrapper')
     const name = document.querySelector('.name')
     const countryCode = document.querySelector('.country-code')
-    const searchButton = document.querySelector('#search-button')
+    const searchButton = document.querySelector('.search-image')
     const locationInput = document.querySelector('#location')
     const feelsLikeDesc = document.querySelector('.feels-like-description')
     const avgTempDesc = document.querySelector('.average-temp-description')
@@ -46,7 +47,8 @@ const DOMCache = (function () {
         humidityDesc,
         convertUnitsButton,
         mainWeather,
-        weatherDesc
+        weatherDesc,
+        mainWrapper
     };
 })();
 
@@ -80,7 +82,7 @@ DOMCache.convertUnitsButton.addEventListener('click', () => {
     console.log(isFahrenheit)
 })
 
-DOMCache.searchButton.addEventListener('click', async () => {
+async function render() {
     try {
 
         let weatherObject = await getWeather(DOMCache.locationInput.value).then(data => data)
@@ -110,8 +112,9 @@ DOMCache.searchButton.addEventListener('click', async () => {
         resetDisplay();
         throw new Error('Invalid Location')
     }
+}
 
-})
+DOMCache.searchButton.addEventListener('click', render)
 
 function resetDisplay() {
     DOMCache.name.innerText = 'Location Name'
@@ -128,3 +131,17 @@ function resetDisplay() {
     DOMCache.minTempDesc.innerText = ''
     DOMCache.maxTempDesc.innerText = ''
 }
+
+// Global 'Enter' key
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        render();
+    }
+})
+
+// GLOW EFFECT FOLLOWING CURSOR
+// DOMCache.mainWrapper.addEventListener("mousemove", (e) => {
+//     let { x, y } = DOMCache.mainWrapper.getBoundingClientRect();
+//     DOMCache.mainWrapper.style.setProperty("--x", e.clientX - x);
+//     DOMCache.mainWrapper.style.setProperty("--y", e.clientY - y);
+// });
