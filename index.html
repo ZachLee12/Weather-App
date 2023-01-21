@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-App</title>
+<script defer src="main.js"></script></head>
+
+<body>
+    <div class="main-wrapper">
+        <h1 class="weather-app-title">What's the Weather?</h1>
+        <div class="search-wrapper">
+            <input type="text" id="location" value="London" placeholder="Eg: London">
+            <img class="search-image" src="assets/images/a27091ef0c45faf8a66e.png" alt="search-image">
+            <div class="invalid-location">Cannot find such location.</div>
+            <div class="convert-units-button-wrapper">
+                <button id="convert-units-button">Celcius</button>
+            </div>
+        </div>
+        <img class="loading" src="assets/images/429b286567e28c6071bb.gif" alt="loading">
+        <div class="weather-content-wrapper">
+            <div class="location-content">
+                <div class="name">name</div>
+                <div class="country-code">country-code</div>
+            </div>
+            <div class="weather-content">
+                <div class="main-weather-wrapper">
+                    <div class="main-weather">main-weather</div>
+                </div>
+                <div class="weather-info-wrapper">
+                    <div class="weather-parameters">
+                        <div class="feels-like">Feels-like</div>
+                        <div class="average-temp">Average Temperature</div>
+                        <div class="min-temp">Min Temperature</div>
+                        <div class="max-temp">Max Temperature</div>
+                        <div class="humidity">Humidity</div>
+                    </div>
+                    <div class="descriptions">
+                        <div class="feels-like-description"></div>
+                        <div class="average-temp-description"></div>
+                        <div class="min-temp-description"></div>
+                        <div class="max-temp-description"></div>
+                        <div class="humidity-description"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
