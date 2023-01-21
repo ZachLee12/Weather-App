@@ -124,6 +124,11 @@ input#location {
     padding-left: 10px;
 }
 
+.invalid-location{
+    color: #e95050;
+    display: none;
+}
+
 .weather-content-wrapper {
     display: flex;
     flex-direction: column;
@@ -188,10 +193,11 @@ input#location {
 }
 
 @keyframes fade-in {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+
+    100% {
         opacity: 1;
     }
 }

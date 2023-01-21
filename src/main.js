@@ -37,7 +37,10 @@ const DOMCache = (function () {
     const weatherContent = document.querySelector('.weather-content')
     const weatherInfoWrapper = document.querySelector('.weather-info-wrapper')
     const locationContent = document.querySelector('.location-content')
+    const invalidLocation = document.querySelector('.invalid-location')
+
     return {
+        invalidLocation,
         locationContent,
         weatherInfoWrapper,
         weatherContent,
@@ -84,13 +87,11 @@ DOMCache.convertUnitsButton.addEventListener('click', () => {
     isFahrenheit
         ? DOMCache.convertUnitsButton.innerText = 'Fahrenheit'
         : DOMCache.convertUnitsButton.innerText = 'Celcius'
-    render();
+    render()
 })
 
 async function render() {
-    DOMCache.weatherContent.style.opacity = 1;
-    DOMCache.weatherInfoWrapper.style.opacity = 1;
-    DOMCache.locationContent.style.opacity = 1;
+    showDisplay();
     try {
         let weatherObject = await getWeather(DOMCache.locationInput.value).then(data => data)
         console.log(weatherObject);
@@ -104,19 +105,23 @@ async function render() {
 
         //temperatures
         if (isFahrenheit) {
-            DOMCache.feelsLikeDesc.innerText = weatherObject.feelsLike
-            DOMCache.avgTempDesc.innerText = weatherObject.avgTemp
-            DOMCache.minTempDesc.innerText = weatherObject.minTemp
-            DOMCache.maxTempDesc.innerText = weatherObject.maxTemp
+            DOMCache.feelsLikeDesc.innerHTML = weatherObject.feelsLike + '&#8457;'
+            DOMCache.avgTempDesc.innerHTML = weatherObject.avgTemp + '&#8457;'
+            DOMCache.minTempDesc.innerHTML = weatherObject.minTemp + '&#8457;'
+            DOMCache.maxTempDesc.innerHTML = weatherObject.maxTemp + '&#8457;'
         } else {
-            DOMCache.feelsLikeDesc.innerText = fahrenheitToCelsius(weatherObject.feelsLike).toFixed(2)
-            DOMCache.avgTempDesc.innerText = fahrenheitToCelsius(weatherObject.avgTemp).toFixed(2)
-            DOMCache.minTempDesc.innerText = fahrenheitToCelsius(weatherObject.minTemp).toFixed(2)
-            DOMCache.maxTempDesc.innerText = fahrenheitToCelsius(weatherObject.maxTemp).toFixed(2)
+            DOMCache.feelsLikeDesc.innerHTML = fahrenheitToCelsius(weatherObject.feelsLike).toFixed(2) + '&#8451;';
+            DOMCache.avgTempDesc.innerHTML = fahrenheitToCelsius(weatherObject.avgTemp).toFixed(2) + '&#8451;';
+            DOMCache.minTempDesc.innerHTML = fahrenheitToCelsius(weatherObject.minTemp).toFixed(2) + '&#8451;';
+            DOMCache.maxTempDesc.innerHTML = fahrenheitToCelsius(weatherObject.maxTemp).toFixed(2) + '&#8451;';
         }
     }
     catch (error) {
-        resetDisplay();
+        hideDisplay();
+        DOMCache.invalidLocation.style.display = 'block'
+        setTimeout(function () {
+            DOMCache.invalidLocation.style.display = 'none'
+        }, 1500)
         throw new Error('Invalid Location')
     }
 }
@@ -137,6 +142,18 @@ function resetDisplay() {
     DOMCache.avgTempDesc.innerText = ''
     DOMCache.minTempDesc.innerText = ''
     DOMCache.maxTempDesc.innerText = ''
+}
+
+function showDisplay() {
+    DOMCache.weatherContent.style.opacity = 1;
+    DOMCache.weatherInfoWrapper.style.opacity = 1;
+    DOMCache.locationContent.style.opacity = 1;
+}
+
+function hideDisplay() {
+    DOMCache.weatherContent.style.opacity = 0;
+    DOMCache.weatherInfoWrapper.style.opacity = 0;
+    DOMCache.locationContent.style.opacity = 0;
 }
 
 // Global 'Enter' key
