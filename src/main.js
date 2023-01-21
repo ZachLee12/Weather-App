@@ -34,8 +34,10 @@ const DOMCache = (function () {
     const convertUnitsButton = document.querySelector('#convert-units-button')
     const mainWeather = document.querySelector('.main-weather')
     const weatherDesc = document.querySelector('.weather-description')
+    const weatherInfoWrapper = document.querySelector('.weather-info-wrapper')
 
     return {
+        weatherInfoWrapper,
         name,
         countryCode,
         searchButton,
@@ -83,8 +85,8 @@ DOMCache.convertUnitsButton.addEventListener('click', () => {
 })
 
 async function render() {
+    DOMCache.weatherInfoWrapper.style.opacity = 1;
     try {
-
         let weatherObject = await getWeather(DOMCache.locationInput.value).then(data => data)
         console.log(weatherObject);
 
