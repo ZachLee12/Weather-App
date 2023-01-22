@@ -29,6 +29,7 @@ body::before {
     border: none;
     padding: 10px 15px;
     font-weight: bold;
+    border-radius: 25px;
     overflow: hidden;
 }
 
