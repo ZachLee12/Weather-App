@@ -62,9 +62,8 @@ const DOMCache = (function () {
 })();
 
 async function getWeather(location) {
-    let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&id=524901&appid=11652fc51470764e7d0282d884bd3840`)
+    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&id=524901&appid=11652fc51470764e7d0282d884bd3840`)
     let data = await response.json();
-    console.log(data)
     return {
         country: data['sys']['country'],
         name: data['name'],
