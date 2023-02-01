@@ -58,6 +58,7 @@ async function render() {
     try {
         let weatherObject = await getWeather(DOMCache.locationInput.value).then(data => data)
         console.log(weatherObject);
+        DOMCache.invalidLocation.style.display = 'none'
         DOMCache.loading.style.display = 'none'
         //others
         DOMCache.name.innerText = weatherObject.name
@@ -81,9 +82,6 @@ async function render() {
     catch (error) {
         hideDisplay();
         DOMCache.invalidLocation.style.display = 'block'
-        setTimeout(function () {
-            DOMCache.invalidLocation.style.display = 'none'
-        }, 1500)
         throw new Error('Invalid Location')
     }
 }
