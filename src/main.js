@@ -2,6 +2,7 @@ import './assets/styles/reset.css'
 import './assets/styles/style.css'
 import Search from './assets/images/search.png'
 import Loading from './assets/images/loading.gif'
+import DOMCache from './DOMCache'
 
 //GIPHY API Key = r44Ss44HzU3t5v9EEYIEjY8WGzrFmDkt
 
@@ -20,46 +21,6 @@ import Loading from './assets/images/loading.gif'
  */
 
 let isFahrenheit = false;
-
-const DOMCache = (function () {
-    const mainWrapper = document.querySelector('.main-wrapper')
-    const name = document.querySelector('.name')
-    const countryCode = document.querySelector('.country-code')
-    const searchButton = document.querySelector('.search-image')
-    const locationInput = document.querySelector('#location')
-    const feelsLikeDesc = document.querySelector('.feels-like-description')
-    const avgTempDesc = document.querySelector('.average-temp-description')
-    const minTempDesc = document.querySelector('.min-temp-description')
-    const maxTempDesc = document.querySelector('.max-temp-description')
-    const humidityDesc = document.querySelector('.humidity-description')
-    const convertUnitsButton = document.querySelector('#convert-units-button')
-    const mainWeather = document.querySelector('.main-weather')
-    const weatherContent = document.querySelector('.weather-content')
-    const weatherInfoWrapper = document.querySelector('.weather-info-wrapper')
-    const locationContent = document.querySelector('.location-content')
-    const invalidLocation = document.querySelector('.invalid-location')
-    const loading = document.querySelector('.loading')
-
-    return {
-        loading,
-        invalidLocation,
-        locationContent,
-        weatherInfoWrapper,
-        weatherContent,
-        name,
-        countryCode,
-        searchButton,
-        locationInput,
-        feelsLikeDesc,
-        avgTempDesc,
-        minTempDesc,
-        maxTempDesc,
-        humidityDesc,
-        convertUnitsButton,
-        mainWeather,
-        mainWrapper
-    };
-})();
 
 async function getWeather(location) {
     let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&id=524901&appid=11652fc51470764e7d0282d884bd3840`)
