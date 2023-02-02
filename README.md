@@ -17,7 +17,7 @@ This programming paradigm can be achieved with `Promises` or `Async/Await`. Note
 
 ```javascript
     async getWeather(location) {
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&id=524901&appid=11652fc51470764e7d0282d884bd3840`)
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&id=${YOUR_API_KEY}`)
         let data = await response.json();
         return {
             //shortened to just return `data` for simplicity in this example
