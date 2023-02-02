@@ -1,3 +1,5 @@
+
+
 # Weather-App
 A simple Weather App that uses the free API provided by [OpenWeather](https://openweathermap.org/api). The main focus of this project is on Asynchronous JavaScript with `async/await`.  
 
