@@ -218,7 +218,6 @@ input#location {
 .descriptions {
     display: grid;
     grid-template: repeat(1fr) / 1fr;
-    /* border: 2px solid red; */
     justify-items: center;
     align-items: center;
 }

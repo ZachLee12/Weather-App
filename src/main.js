@@ -3,6 +3,7 @@ import './assets/styles/style.css'
 import Search from './assets/images/search.png'
 import Loading from './assets/images/loading.gif'
 import DOMCache from './DOMCache'
+import ViewHandler from './ViewHandler'
 
 //GIPHY API Key = r44Ss44HzU3t5v9EEYIEjY8WGzrFmDkt
 
@@ -21,6 +22,8 @@ import DOMCache from './DOMCache'
  */
 
 let isFahrenheit = false;
+let locationIsValid = false;
+let viewHandler = new ViewHandler();
 
 async function getWeather(location) {
     let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&q=${location}&id=524901&appid=11652fc51470764e7d0282d884bd3840`)
@@ -47,7 +50,7 @@ DOMCache.convertUnitsButton.addEventListener('click', () => {
     isFahrenheit
         ? DOMCache.convertUnitsButton.innerText = 'Fahrenheit'
         : DOMCache.convertUnitsButton.innerText = 'Celcius'
-    if (DOMCache.locationInput.value !== '') {
+    if (DOMCache.locationInput.value !== '' && locationIsValid) {
         render()
     }
 })
@@ -57,7 +60,7 @@ async function render() {
     DOMCache.loading.style.display = 'block'
     try {
         let weatherObject = await getWeather(DOMCache.locationInput.value).then(data => data)
-        console.log(weatherObject);
+        locationIsValid = true;
         DOMCache.invalidLocation.style.display = 'none'
         DOMCache.loading.style.display = 'none'
         //others
@@ -82,6 +85,7 @@ async function render() {
     catch (error) {
         hideDisplay();
         DOMCache.invalidLocation.style.display = 'block'
+        locationIsValid = false;
         throw new Error('Invalid Location')
     }
 }
